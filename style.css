@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* background-color: #000000; /* Black background */
+  z-index: -100;
+  color: #FFFFFF; /* White text */
+  font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif; /* Clean font */
+}
+
+#webcamVideo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100; /* Send to back */
+  transform: translateX(-50%) translateY(-50%);
+  object-fit: cover; /* Cover the screen */
+
+  /* --- Choose one option for video visibility --- */
+
+  /* Option 1: Hide the video completely */
+  /* display: none; */
+
+  /* Option 2: Show blurred video */
+  filter: blur(15px);
+  opacity: 0.5; /* Make it slightly transparent */
+
+  /* Option 3: Show clear video (remove filter/opacity/display:none) */
+  /* No extra styles needed */
+}
+
+.emotion-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  text-align: center;
+  z-index: 10; /* Ensure it's above the video */
+}
+
+#emotionText {
+  font-size: 10vw; /* Responsive font size based on viewport width */
+  font-weight: bold;
+  text-transform: uppercase; /* Make text uppercase */
+  letter-spacing: 0.05em;
+  line-height: 1;
+
+  /* Subtle glow effect */
+  text-shadow:
+      0 0 10px rgba(255, 255, 255, 0.5),
+      0 0 20px rgba(255, 255, 255, 0.4),
+      0 0 30px rgba(255, 255, 255, 0.3);
+
+  /* Smooth transition for text changes (optional, might cause jumpiness) */
+  transition: opacity 0.2s ease-in-out; 
+}
+
+@media (max-width: 600px) {
+  #emotionText {
+      font-size: 25vw; /* Increase relative size slightly on mobile */
+  }
+}
+
+/* .default-background {
+    background-color: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
