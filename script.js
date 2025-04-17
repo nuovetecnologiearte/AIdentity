@@ -16,6 +16,18 @@ let detectionIntervalId = null;
 let currentEmotion = ''; // Store the currently displayed emotion
 let lastDetectionTime = 0;
 
+const landingPage = document.getElementById('landingPage');
+const mainContent = document.getElementById('mainContent');
+const startButton = document.getElementById('startButton');
+
+// Wrap your initialization code in this function
+startButton.addEventListener('click', async () => {
+    landingPage.style.display = 'none';
+    mainContent.style.display = 'block';
+    // Start your existing initialization here
+    initializeApp();
+});
+
 // --- Functions ---
 
 // Pick a random image from the specified emotion folder
@@ -214,6 +226,8 @@ async function initializeApp() {
 }
 
 // --- Start the Application ---
-initializeApp();
+// Comment out or remove any automatic initialization
+// that was previously running on page load
+// initializeApp();
 
 //cdn.jsdelivr.net/npm/face-api.js@0.22.2/weights/tiny_face_detector_model-weights_manifest.json:1

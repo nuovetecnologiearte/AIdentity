@@ -39,6 +39,39 @@ html, body {
   /* No extra styles needed */
 }
 
+#titolo {
+  position: absolute;
+  margin:auto;
+  align-content: center;
+  font-size: 175px;
+  left: 5%;
+  top:20%;
+  font-family: 'Monteserat Alternative', sans-serif;
+  font-weight:bold;
+  color: white;
+  z-index: 1;
+  text-align: center;
+  margin: 20px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#aidentity {
+  position: absolute;
+  margin:auto;
+  align-content: center;
+  font-size: 175px;
+  left: 5%;
+  top: 50%;
+  font-family: 'Monteserat Alternative', sans-serif;
+  font-weight:bold;
+  color: rgb(229, 250, 5);
+  z-index: 1;
+  animation: fontChange 6s infinite;
+  text-align: center;
+  margin: 20px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 .emotion-container {
   position: absolute;
   top: 0;
@@ -73,6 +106,75 @@ html, body {
   #emotionText {
       font-size: 25vw; /* Increase relative size slightly on mobile */
   }
+}
+
+.landing-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.start-button {
+    padding: 20px 40px;
+    font-size: 50px;
+    position:absolute;
+    right: 20%;
+    bottom: 20%;
+    border-radius: 25px;
+    box-shadow: #ff0000;
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    border: 2px solid white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.start-button:hover {
+    background-color: white;
+    color: black;
+}
+
+
+
+@keyframes fontChange {
+    0% {
+        font-family: 'Roboto', sans-serif;
+        transform: scale(1);
+        color: #ff0000;
+    }
+    20% {
+        font-family: 'Playfair Display', serif;
+        transform: scale(1);
+        color: #d4ff00;
+    }
+    40% {
+        font-family: 'Montserrat', cursive;
+        transform: scale(1);
+        color: #3300ff;
+    }
+    60% {
+        font-family: 'Impact', cursive;
+        transform: scale(1);
+        color: #00ff44;
+    }
+    80% {
+        font-family: 'Times New Roman', cursive;
+        transform: scale(1);
+        color: #d0ff00;
+    }
+    100% {
+        font-family: 'Gotham Black', sans-serif;
+        transform: scale(1);
+        color: #ffffff;
+    }
 }
 
 /* .default-background {
