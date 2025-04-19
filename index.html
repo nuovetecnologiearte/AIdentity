@@ -3,29 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aidentity</title>
+    <title>AIdentity</title>
+    
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- External Libraries -->
     <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display&family=Press+Start+2P&family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Add this landing page section before your existing content -->
+    <video id="webcamVideo" autoplay muted playsinline></video>
+    
+    <!-- Landing Page -->
     <div id="landingPage" class="landing-page">
-        <span id="titolo">Welcome to</span>
-        <span id="aidentity">AIdentity</span>
-        <button id="startButton" class="start-button">START</button>
+        <h1 class="title">Aidentity
+            <div class="aurora">
+              <div class="aurora__item"></div>
+              <div class="aurora__item"></div>
+              <div class="aurora__item"></div>
+              <div class="aurora__item"></div>
+            </div>
+          </h1>
+          <p class="subtitle">Ricorda di sorridere.</p>
+        <button id="startButton" class="start-button">Start the Experience</button>
     </div>
 
-    <!-- Wrap your existing content in a container and hide it initially -->
+    <!-- Visualizzazione Programma -->
     <div id="mainContent" class="main-content" style="display: none;">
-        <video id="webcamVideo" autoplay muted playsinline></video>
         <div id="imageContainer"></div>
         <div id="emotionDisplay" class="emotion-container">
             <span id="emotionText">INITIALIZING...</span>
         </div>
         <div id="defaultBackground" class="default-background"></div>
-        <!-- <canvas id="faceDetectionCanvas" style="position: absolute; top: 100; left: 100; width: auto"></canvas> <!--Script per mostrare la webcam-->
     </div>
+
+    <!-- Script -->
     <script defer src="script.js"></script>
 </body>
 </html>

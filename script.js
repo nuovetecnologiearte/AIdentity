@@ -11,7 +11,7 @@ const emotionFolders = {
     fearful: './src/fearful',
     disgusted: './src/disgusted'
 };
-const detectionInterval = 500; // ms - How often to detect faces (adjust for performance)
+const detectionInterval = 250; // ms - How often to detect faces (adjust for performance)
 let detectionIntervalId = null;
 let currentEmotion = ''; // Store the currently displayed emotion
 let lastDetectionTime = 0;
@@ -115,8 +115,8 @@ async function startWebcam() {
         });
         video.srcObject = stream;
         console.log("Webcam access granted.");
-        emotionText.textContent = 'STARTING...'; // Update status
-        return true; // Indicate success
+        emotionText.textContent = 'STARTING...'; 
+        return true; 
     } catch (error) {
         console.error("Error accessing webcam:", error);
         emotionText.textContent = 'WEBCAM ERROR';
@@ -125,7 +125,7 @@ async function startWebcam() {
         } else if (error.name === 'NotFoundError') {
             emotionText.textContent = 'NO WEBCAM FOUND';
         }
-        return false; // Indicate failure
+        return false; 
     }
 }
 
@@ -146,7 +146,7 @@ function getDominantEmotion(expressions) {
 async function detectFaces() {
     const now = Date.now();
     if (now - lastDetectionTime < detectionInterval) {
-        return; // Skip detection if not enough time has passed
+        return;
     }
     lastDetectionTime = now;
 
@@ -163,6 +163,15 @@ async function detectFaces() {
         .withFaceExpressions();
 
     if (detections && detections.expressions) {
+        const startButton = document.getElementById('startButton');
+        const isSmiling = detections.expressions.happy > 0.3; // Threshold
+
+        if (isSmiling) {
+            startButton.classList.add('active');
+        } else {
+            startButton.classList.remove('active');
+        }
+
         const dominantEmotion = getDominantEmotion(detections.expressions);
 
         if (dominantEmotion && dominantEmotion !== currentEmotion) {
@@ -226,8 +235,35 @@ async function initializeApp() {
 }
 
 // --- Start the Application ---
-// Comment out or remove any automatic initialization
-// that was previously running on page load
 // initializeApp();
 
-//cdn.jsdelivr.net/npm/face-api.js@0.22.2/weights/tiny_face_detector_model-weights_manifest.json:1
+// Inizializza l'applicazione quando il documento è caricato
+document.addEventListener('DOMContentLoaded', () => {
+    const video = document.getElementById('webcamVideo');
+    const startButton = document.getElementById('startButton');
+    const landingPage = document.getElementById('landingPage');
+    
+    // Mostra subito la landing page
+    landingPage.style.opacity = '1';
+    
+    // Inizializza face-api e webcam in modo asincrono
+    setTimeout(() => {
+        initializeApp().then(() => {
+            console.log('App initialized successfully');
+        }).catch(error => {
+            console.error('Failed to initialize app:', error);
+        });
+    }, 1500); // Ritarda l'inizializzazione di 1.5s per permettere alle animazioni di partire
+
+    startButton.addEventListener('click', () => {
+        if (startButton.classList.contains('active')) {
+            landingPage.style.opacity = '0';
+            setTimeout(() => {
+                landingPage.style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            }, 500);
+        }
+    });
+});
+
+// Modifica il posizionamento del video nella landing page

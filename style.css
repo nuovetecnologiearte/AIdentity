@@ -1,19 +1,281 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap");
+
+/* Reset di base */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  /* background-color: #000000; /* Black background */
-  z-index: -100;
-  color: #FFFFFF; /* White text */
-  font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif; /* Clean font */
+:root {
+  --bg: #000000;
+  --clr-1: #1880C3;
+  --clr-2: #8BBE3F;
+  --clr-3: #F9B21C;
+  --clr-4: #EA749C;
+
+  --blur: 1rem;
+  --fs: clamp(3rem, 8vw, 7rem);
+  --ls: clamp(-1.75px, -0.25vw, -3.5px);
 }
 
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background-color: var(--bg);
+  color: #fff;
+  font-family: "Inter", "DM Sans", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.landing-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.title {
+  font-size: 200px;
+  font-weight: 100;
+  letter-spacing: var(--ls);
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  margin: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  /* Animazione "draw in" */
+  color: transparent;
+  background-clip: text; 
+  -webkit-background-clip: text; 
+  background-image: linear-gradient(90deg, #fff 50%, transparent 50%);
+  background-size: 200% 100%;
+  animation: draw-in 1.5s ease-in-out forwards; 
+}
+
+/* Keyframes per l'animazione "draw in" */
+@keyframes draw-in {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: 0 0; 
+  }
+}
+
+/* Keyframes per l'animazione "fade in up" */
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); 
+  }
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 2rem;
+  text-shadow: none;
+  animation: fade-in-up 1s ease-out forwards; 
+  background: none;
+  mix-blend-mode: normal;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Animazione Aidentity Gradiente */
+.aurora {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  mix-blend-mode: darken;
+  pointer-events: none;
+}
+
+.aurora__item {
+  overflow: hidden;
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  background-color: var(--clr-1);
+  border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+  filter: blur(var(--blur));
+  mix-blend-mode: overlay;
+}
+
+.aurora__item:nth-of-type(1) {
+  top: -50%;
+  animation: aurora-border 6s ease-in-out infinite,
+    aurora-1 12s ease-in-out infinite alternate;
+}
+
+.aurora__item:nth-of-type(2) {
+  background-color: var(--clr-3);
+  right: 0;
+  top: 0;
+  animation: aurora-border 6s ease-in-out infinite,
+    aurora-2 12s ease-in-out infinite alternate;
+}
+
+.aurora__item:nth-of-type(3) {
+  background-color: var(--clr-2);
+  left: 0;
+  bottom: 0;
+  animation: aurora-border 6s ease-in-out infinite,
+    aurora-3 8s ease-in-out infinite alternate;
+}
+
+.aurora__item:nth-of-type(4) {
+  background-color: var(--clr-4);
+  right: 0;
+  bottom: -50%;
+  animation: aurora-border 6s ease-in-out infinite,
+    aurora-4 24s ease-in-out infinite alternate;
+}
+
+
+@keyframes aurora-1 {
+  0% {
+    top: 0;
+    right: 0;
+  }
+
+  50% {
+    top: 100%;
+    right: 75%;
+  }
+
+  75% {
+    top: 100%;
+    right: 25%;
+  }
+
+  100% {
+    top: 0;
+    right: 0;
+  }
+}
+
+@keyframes aurora-2 {
+  0% {
+    top: -50%;
+    left: 0%;
+  }
+
+  60% {
+    top: 100%;
+    left: 75%;
+  }
+
+  85% {
+    top: 100%;
+    left: 25%;
+  }
+
+  100% {
+    top: -50%;
+    left: 0%;
+  }
+}
+
+@keyframes aurora-3 {
+  0% {
+    bottom: 0;
+    left: 0;
+  }
+
+  40% {
+    bottom: 100%;
+    left: 75%;
+  }
+
+  65% {
+    bottom: 40%;
+    left: 50%;
+  }
+
+  100% {
+    bottom: 0;
+    left: 0;
+  }
+}
+
+@keyframes aurora-4 {
+  0% {
+    bottom: -50%;
+    right: 0;
+  }
+
+  50% {
+    bottom: 0%;
+    right: 40%;
+  }
+
+  90% {
+    bottom: 50%;
+    right: 25%;
+  }
+
+  100% {
+    bottom: -50%;
+    right: 0;
+  }
+}
+
+@keyframes aurora-border {
+  0% {
+    border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+  }
+
+  25% {
+    border-radius: 47% 29% 39% 49% / 61% 19% 66% 26%;
+  }
+
+  50% {
+    border-radius: 57% 23% 47% 72% / 63% 17% 66% 33%;
+  }
+
+  75% {
+    border-radius: 28% 49% 29% 100% / 93% 20% 64% 25%;
+  }
+
+  100% {
+    border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+  }
+}
+
+
+/* Stile per il video della webcam */
 #webcamVideo {
   position: absolute;
   top: 50%;
@@ -22,167 +284,113 @@ html, body {
   min-height: 100%;
   width: auto;
   height: auto;
-  z-index: -100; /* Send to back */
-  transform: translateX(-50%) translateY(-50%);
-  object-fit: cover; /* Cover the screen */
-
-  /* --- Choose one option for video visibility --- */
-
-  /* Option 1: Hide the video completely */
-  /* display: none; */
-
-  /* Option 2: Show blurred video */
+  z-index: -100;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
   filter: blur(15px);
-  opacity: 0.5; /* Make it slightly transparent */
-
-  /* Option 3: Show clear video (remove filter/opacity/display:none) */
-  /* No extra styles needed */
+  opacity: 0;
+  transition: opacity 1s ease;
 }
 
-#titolo {
-  position: absolute;
-  margin:auto;
-  align-content: center;
-  font-size: 175px;
-  left: 5%;
-  top:20%;
-  font-family: 'Monteserat Alternative', sans-serif;
-  font-weight:bold;
-  color: white;
-  z-index: 1;
-  text-align: center;
-  margin: 20px 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+.webcam-loaded #webcamVideo {
+  opacity: 0.5;
 }
 
-#aidentity {
-  position: absolute;
-  margin:auto;
-  align-content: center;
-  font-size: 175px;
-  left: 5%;
-  top: 50%;
-  font-family: 'Monteserat Alternative', sans-serif;
-  font-weight:bold;
-  color: rgb(229, 250, 5);
-  z-index: 1;
-  animation: fontChange 6s infinite;
-  text-align: center;
-  margin: 20px 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
+/* Contenitore per le emozioni */
 .emotion-container {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw; /* Full viewport width */
-  height: 100vh; /* Full viewport height */
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  z-index: 10; /* Ensure it's above the video */
+  z-index: 10; 
 }
 
 #emotionText {
-  font-size: 10vw; /* Responsive font size based on viewport width */
+  font-size: 10vw;
   font-weight: bold;
-  text-transform: uppercase; /* Make text uppercase */
+  text-transform: uppercase;
   letter-spacing: 0.05em;
   line-height: 1;
-
-  /* Subtle glow effect */
-  text-shadow:
-      0 0 10px rgba(255, 255, 255, 0.5),
-      0 0 20px rgba(255, 255, 255, 0.4),
-      0 0 30px rgba(255, 255, 255, 0.3);
-
-  /* Smooth transition for text changes (optional, might cause jumpiness) */
-  transition: opacity 0.2s ease-in-out; 
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+               0 0 20px rgba(255, 255, 255, 0.4),
+               0 0 30px rgba(255, 255, 255, 0.3);
+  transition: opacity 0.2s ease-in-out;
 }
 
 @media (max-width: 600px) {
   #emotionText {
-      font-size: 25vw; /* Increase relative size slightly on mobile */
+    font-size: 25vw;
   }
 }
 
-.landing-page {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
+/* Pulsante di avvio */
+.start-button {
+  position: relative;
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  border-radius: 25px;
+  top: 100px;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  cursor: default;
+  transition: all 0.5s ease;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
 }
 
-.start-button {
-    padding: 20px 40px;
-    font-size: 50px;
-    position:absolute;
-    right: 20%;
-    bottom: 20%;
-    border-radius: 25px;
-    box-shadow: #ff0000;
-    background-color: transparent;
-    color: rgb(255, 255, 255);
-    border: 2px solid white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 100;
+.start-button.active {
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 1;
 }
 
 .start-button:hover {
-    background-color: white;
-    color: black;
+  transform: scale(1.1);
 }
 
-
-
-@keyframes fontChange {
-    0% {
-        font-family: 'Roboto', sans-serif;
-        transform: scale(1);
-        color: #ff0000;
-    }
-    20% {
-        font-family: 'Playfair Display', serif;
-        transform: scale(1);
-        color: #d4ff00;
-    }
-    40% {
-        font-family: 'Montserrat', cursive;
-        transform: scale(1);
-        color: #3300ff;
-    }
-    60% {
-        font-family: 'Impact', cursive;
-        transform: scale(1);
-        color: #00ff44;
-    }
-    80% {
-        font-family: 'Times New Roman', cursive;
-        transform: scale(1);
-        color: #d0ff00;
-    }
-    100% {
-        font-family: 'Gotham Black', sans-serif;
-        transform: scale(1);
-        color: #ffffff;
-    }
+.start-button:hover::before,
+.start-button:hover::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: burst 0.8s ease-out forwards;
 }
 
-/* .default-background {
-    background-color: black;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
+.start-button:hover::before {
+  background: radial-gradient(circle, #EA749C, transparent);
+  filter: blur(var(--blur));
+  z-index: -1;
+}
+
+.start-button:hover::after {
+  background: radial-gradient(circle, #1880C3, transparent);
+  filter: blur(var(--blur));
+  z-index: -2;
+
+}
+
+@keyframes burst {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
 }
