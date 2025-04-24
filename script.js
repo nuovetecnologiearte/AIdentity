@@ -11,7 +11,7 @@ const emotionFolders = {
     fearful: './src/fearful',
     disgusted: './src/disgusted'
 };
-const detectionInterval = 250; // ms - How often to detect faces (adjust for performance)
+const detectionInterval = 1000; // ms - How often to detect faces (adjust for performance)
 let detectionIntervalId = null;
 let currentEmotion = ''; // Store the currently displayed emotion
 let lastDetectionTime = 0;
@@ -80,7 +80,6 @@ async function getRandomImage(emotion) {
 // Load models required by face-api.js
 async function loadModels() {
     console.log("Loading models...");
-    emotionText.textContent = 'LOADING MODELS...';
     try {
         // Check if faceapi is available
         if (typeof faceapi === 'undefined') {
@@ -99,7 +98,6 @@ async function loadModels() {
         return true;
     } catch (error) {
         console.error("Error loading models:", error);
-        emotionText.textContent = 'MODEL LOAD ERROR';
         return false;
     }
 }
@@ -107,7 +105,6 @@ async function loadModels() {
 // Access the user's webcam
 async function startWebcam() {
     console.log("Requesting webcam access...");
-    emotionText.textContent = 'NEED WEBCAM...';
     try {
         const stream = await navigator.mediaDevices.getUserMedia({
             video: {} // Request video access
@@ -115,7 +112,6 @@ async function startWebcam() {
         });
         video.srcObject = stream;
         console.log("Webcam access granted.");
-        emotionText.textContent = 'STARTING...'; 
         return true; 
     } catch (error) {
         console.error("Error accessing webcam:", error);
@@ -185,12 +181,14 @@ async function detectFaces() {
                 imageContainer.innerHTML = `<img src="${imagePath}" alt="${dominantEmotion}" style="width: 100%; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: -1;">`;
             }
         } else if (!dominantEmotion && currentEmotion !== 'NO FACE') {
-            emotionText.textContent = '...';
+            emotionText.textContent = 'Nessuna faccia rilevata';
+            imageContainer.innerHTML = ''; // Clear the image container
             currentEmotion = 'NO FACE';
         }
     } else {
         if (currentEmotion !== 'NO FACE') {
-            emotionText.textContent = '...';
+            emotionText.textContent = 'Nessuna faccia rilevata';
+            imageContainer.innerHTML = ''; // Clear the image container
             currentEmotion = 'NO FACE';
         }
     }
@@ -198,7 +196,6 @@ async function detectFaces() {
 
 // Main initialization function
 async function initializeApp() {
-    emotionText.textContent = 'INITIALIZING...';
 
     const modelsLoaded = await loadModels();
     if (!modelsLoaded) {
@@ -215,8 +212,7 @@ async function initializeApp() {
     // Add event listener to start detection *after* the video is ready and playing
     video.addEventListener('play', () => {
         console.log("Video playing, starting detection loop.");
-        emotionText.textContent = 'READY'; // Indicate ready state briefly
-
+    
         // Clear any previous interval
         if (detectionIntervalId) {
             clearInterval(detectionIntervalId);

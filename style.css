@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap");
 
+html {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
 /* Reset di base */
 * {
   margin: 0;
