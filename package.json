@@ -1,0 +1,25 @@
+{
+  "name": "aidentity",
+  "version": "1.0.0",
+  "description": "AIdentity è un'applicazione web che utilizza l'intelligenza artificiale per creare un'esperienza empatica interattiva.",
+  "main": "client_script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nuovetecnologiearte/AIdentity.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nuovetecnologiearte/AIdentity/issues"
+  },
+  "homepage": "https://github.com/nuovetecnologiearte/AIdentity#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1"
+  }
+}

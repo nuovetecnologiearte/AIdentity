@@ -11,24 +11,24 @@ const emotionFolders = {
     fearful: './src/fearful',
     disgusted: './src/disgusted'
 };
-const detectionInterval = 1000; // ms - How often to detect faces (adjust for performance)
+const detectionInterval = 800; // ms - How often to detect faces (adjust for performance)
 let detectionIntervalId = null;
 let currentEmotion = ''; // Store the currently displayed emotion
 let lastDetectionTime = 0;
 
+const socket = io('http://localhost:3001');
+let ready = false;
+
 const landingPage = document.getElementById('landingPage');
 const mainContent = document.getElementById('mainContent');
-const startButton = document.getElementById('startButton');
-
-// Wrap your initialization code in this function
-startButton.addEventListener('click', async () => {
-    landingPage.style.display = 'none';
-    mainContent.style.display = 'block';
-    // Start your existing initialization here
-    initializeApp();
-});
 
 // --- Functions ---
+
+// Write data in src/to_show.json
+async function writeData(emotion) {
+    socket.emit('emotion', emotion);
+    console.log('Data send on server:', emotion);
+}
 
 // Pick a random image from the specified emotion folder
 async function getRandomImage(emotion) {
@@ -159,19 +159,20 @@ async function detectFaces() {
         .withFaceExpressions();
 
     if (detections && detections.expressions) {
-        const startButton = document.getElementById('startButton');
         const isSmiling = detections.expressions.happy > 0.3; // Threshold
 
         if (isSmiling) {
-            startButton.classList.add('active');
-        } else {
-            startButton.classList.remove('active');
+            landingPage.style.opacity = '0';
+            setTimeout(() => {
+                landingPage.style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            }, 500);
         }
 
         const dominantEmotion = getDominantEmotion(detections.expressions);
 
         if (dominantEmotion && dominantEmotion !== currentEmotion) {
-            let displayEmotion = dominantEmotion.toUpperCase();
+            let displayEmotion = dominantEmotion;
             emotionText.textContent = displayEmotion;
             currentEmotion = dominantEmotion;
 
@@ -182,16 +183,15 @@ async function detectFaces() {
             }
         } else if (!dominantEmotion && currentEmotion !== 'NO FACE') {
             emotionText.textContent = 'Nessuna faccia rilevata';
-            imageContainer.innerHTML = ''; // Clear the image container
             currentEmotion = 'NO FACE';
         }
     } else {
         if (currentEmotion !== 'NO FACE') {
             emotionText.textContent = 'Nessuna faccia rilevata';
-            imageContainer.innerHTML = ''; // Clear the image container
             currentEmotion = 'NO FACE';
         }
     }
+    if (ready) await writeData(currentEmotion); // Write the emotion to JSON
 }
 
 // Main initialization function
@@ -236,7 +236,6 @@ async function initializeApp() {
 // Inizializza l'applicazione quando il documento è caricato
 document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('webcamVideo');
-    const startButton = document.getElementById('startButton');
     const landingPage = document.getElementById('landingPage');
     
     // Mostra subito la landing page
@@ -251,15 +250,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, 1500); // Ritarda l'inizializzazione di 1.5s per permettere alle animazioni di partire
 
-    startButton.addEventListener('click', () => {
-        if (startButton.classList.contains('active')) {
-            landingPage.style.opacity = '0';
-            setTimeout(() => {
-                landingPage.style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-            }, 500);
-        }
-    });
 });
 
 // Modifica il posizionamento del video nella landing page

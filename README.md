@@ -6,3 +6,6 @@ L'applicazione utilizza le librerie di face-api.js per il riconoscimento faccial
 
 # Privacy Note
 All processing is done locally in your browser - no facial data is stored or transmitted.
+
+
+

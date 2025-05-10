@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIdentity</title>
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- External Libraries -->
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display&family=Press+Start+2P&family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+    <video id="webcamVideo" autoplay muted playsinline></video>
+    
+    <!-- Landing Page -->
+    <div id="landingPage" class="landing-page">
+        <h1 class="title">Aidentity
+            <div class="aurora">
+              <div class="aurora__item"></div>
+              <div class="aurora__item"></div>
+              <div class="aurora__item"></div>
+              <div class="aurora__item"></div>
+            </div>
+          </h1>
+          <p class="subtitle">Sorridi per iniziare.</p>
+    </div>
+
+    <!-- Visualizzazione Programma -->
+    <div id="mainContent" class="main-content" style="display: none;">
+        <div id="imageContainer"></div>
+        <div id="emotionDisplay" class="emotion-container">
+            <span id="emotionText"></span>
+        </div>
+        <div id="defaultBackground" class="default-background"></div>
+    </div>
+
+    <!-- Script -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script defer src="client_script.js"></script>
+</body>
+</html>
