@@ -77,7 +77,7 @@ body {
   background-image: linear-gradient(90deg, #fff 50%, transparent 50%);
   background-size: 200% 100%;
   animation: draw-in 1.5s ease-in-out forwards; 
-}
+} 
 
 /* Keyframes per l'animazione "draw in" */
 @keyframes draw-in {
@@ -283,16 +283,11 @@ body {
 /* Stile per il video della webcam */
 #webcamVideo {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -100;
-  transform: translate(-50%, -50%);
+  bottom: 0;
+  left: 0;
+  width: 25vw;
+  z-index: 3000;
   object-fit: cover;
-  filter: blur(15px);
   opacity: 0;
   transition: opacity 1s ease;
 }
@@ -303,23 +298,26 @@ body {
 
 /* Contenitore per le emozioni */
 .emotion-container {
-  position: fixed;
-  background-color: #00000030;
-  border-radius: 5px;
-  bottom: 20px;
-  right: 20px;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
   width: 200px;
-  padding: 20px;
+  height: 100px;
+  z-index: 10; 
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  flex-direction: column; 
+  background: #00000030;
+  border-radius: 5px;
   text-align: center;
-  z-index: 10;
 }
 
 #emotionText {
   font-size: 20px;
+  font-weight: bold;
   text-transform: capitalize;
+  transition: opacity 0.2s ease-in-out;
 }
 
 @keyframes burst {
@@ -334,4 +332,35 @@ body {
     transform: translate(-50%, -50%) scale(1.5);
     opacity: 0;
   }
+}
+
+/* Aggiungiamo le classi per le transizioni */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+.fade-out {
+    opacity: 1;
+    animation: fadeOut 1s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Assicuriamoci che la landing page abbia una transizione fluida */
+.landing-page {
+    transition: opacity 1s ease-in-out;
+}
+
+/* Assicuriamoci che il contenuto principale abbia una transizione fluida */
+.main-content {
+    transition: opacity 1s ease-in-out;
 }
